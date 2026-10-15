@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Palindrome Checker</title>
+</head>
+
+<body style="font-family: 'Poppins', sans-serif; line-height:1.8; max-width:900px;
+margin:40px auto; background-color:#f4f4f4; text-align:center; padding:0 20px;">
+
+<h1 style="color:#1a5276;">Palindrome Checker</h1>
+
+<form style="background-color:white; padding:20px; border-radius:8px; max-width:600px;
+margin:0 auto; text-align:center;" onsubmit="return checkPalindrome()">
+
+    <h3 style="color:#216894;">Enter a Word</h3>
+
+    <b>Word: </b>
+    <input type="text" id="wordInput" style="width:50%; padding:8px;" required>
+    <br><br><hr><br>
+
+    <input type="submit" value="Check" style="background-color:#2980b9; color:white;
+    padding:10px 15px; border:none; border-radius:4px; width:49%; cursor:pointer;">
+    <input type="reset" value="Clear" onclick="document.getElementById('display').innerHTML=''"
+    style="background-color:#95a5a6; color:white; padding:10px 15px; border:none;
+    border-radius:4px; width:49%; cursor:pointer;">
+
+</form>
+
+<div id="display" style="max-width:600px; margin:20px auto; font-size:1.2em;"></div>
+
+<script>
+function checkPalindrome()
+{
+    // get the word from the id
+    var word = document.getElementById("wordInput").value;
+
+    // Input validation: block empty input
+    if (word === "") {
+        document.getElementById("display").innerHTML = "<p style='color:#e74c3c;'>Please enter a word.</p>";
+        return false;
+    }
+
+    // Text processing: remove spaces and convert to lowercase so checking is accurate
+    var cleaned = word.toLowerCase();
+    cleaned = cleaned.split(" ").join("");
+
+    // Total character count (based on the cleaned word)
+    var charCount = cleaned.length;
+
+    // build the reverse of the word using a for loop, going backwards
+    var reversed = "";
+    for (var i = cleaned.length - 1; i >= 0; i--) {
+        reversed = reversed + cleaned.charAt(i);
+    }
+
+    // compare original vs reversed using if/else
+    var remarks = "";
+    if (cleaned === reversed) {
+        remarks = "This IS a palindrome.";
+    }
+    else {
+        remarks = "This is NOT a palindrome.";
+    }
+
+    // Display all required results on the page
+    document.getElementById("display").innerHTML =
+        "<div style='background-color:white; padding:15px; border-radius:8px;'>" +
+        "<p><b>Original Word:</b> " + word + "</p>" +
+        "<p><b>Reversed Word:</b> " + reversed + "</p>" +
+        "<p><b>Total Characters:</b> " + charCount + "</p>" +
+        "<p style='color:#1a5276;'><b>Result:</b> " + remarks + "</p>" +
+        "</div>";
+
+    // prevent page reload
+    return false;
+}
+</script>
+
+</body>
+</html>
